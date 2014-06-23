@@ -1,0 +1,30 @@
+<?php 
+session_start();?> 
+ if(isset($_SESSION['nombre']))
+{
+	include('cargar_valores.php');	           // Se incluye el archivo para cargar los datos iniciales de la interfaz
+	cargarValoresIniciales();                  // Se ejecuta la carga de Valores
+}elseif(empty($_SESSION['TwitterUsername']))
+{
+	header("Location: ../login/login.html");
+}else{ //Si no se ha iniciado sesión, se reenvía al usuario a la página de Login
+	header("Location: ../login/login.html");
+}
+
+
+<?php
+session_start();
+elseif(empty($_SESSION['TwitterUsername']))
+{
+header('Location: index.php');
+}
+
+______________________________________________________________________
+
+<?php session_start();?> 
+<?php if(isset($_SESSION['nombre']))
+{	
+}else{ //Si no se ha iniciado sesión, se reenvía al usuario a la página de Login
+	header("Location: ../login/login.html");
+}
+?>
