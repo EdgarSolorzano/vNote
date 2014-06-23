@@ -1,0 +1,183 @@
+/* 
+Author: Start Bootstrap - http://startbootstrap.com
+'SB Admin' HTML Template by Start Bootstrap
+
+All Start Bootstrap themes are licensed under Apache 2.0. 
+For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
+*/
+
+/* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
+
+/* Estilos globales vNote */
+
+body {
+  margin-top: 50px;
+}
+
+#wrapper {
+  padding-left: 0;
+}
+
+#page-wrapper {
+  width: 100%;
+  padding: 5px 15px;
+}
+
+/* Nav Announcements */
+
+.announcement-heading {
+  font-size: 50px;
+  margin: 0;
+}
+
+.announcement-text {
+  margin: 0;
+}
+
+/* Table Headers */
+
+table.tablesorter thead {
+  cursor: pointer;
+}
+
+table.tablesorter thead tr th:hover {
+  background-color: #f5f5f5;
+}
+
+.navbar-default {
+	background-color: #3585cc;
+	border-color: #264d9b;
+}
+.navbar-default .navbar-brand {
+	color: #75c5f0;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: #99d8f2;
+}
+.navbar-default .navbar-text {
+	color: #75c5f0;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #75c5f0;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #99d8f2;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #99d8f2;
+	background-color: #264d9b;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	color: #99d8f2;
+	background-color: #264d9b;
+}
+.navbar-default .navbar-toggle {
+	border-color: #264d9b;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #264d9b;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #75c5f0;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border-color: #75c5f0;
+}
+.navbar-default .navbar-link {
+	color: #75c5f0;
+}
+.navbar-default .navbar-link:hover {
+	color: #99d8f2;
+}
+
+/* Configuracion del dropdown para que se vea completo */
+.dropdown-menu {
+  width: 100%; 
+}
+
+/* Division para el sidebar */
+      .nav > .navbar-header{
+		  padding: 6px 115px;
+		  font-size: 12px;
+		  line-height: 0.8;
+		  height: 1px;
+		  overflow: hidden;
+		  background-color: #264d9b;
+	   }
+
+
+/* Edit Below to Customize Widths > 768px */
+@media (min-width:768px) {
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #75c5f0;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #99d8f2;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: #99d8f2;
+		background-color: #264d9b;
+	}
+
+  /* Wrappers */
+
+  #wrapper {
+	padding-left: 225px;
+  }
+
+  #page-wrapper {
+	padding: 15px 25px;
+  }
+
+  /* Side Nav */
+
+    .side-nav {
+	margin-left: -225px;
+	left: 225px;
+	width: 225px;
+	position: fixed;
+	top: 50px;
+	height: 100%;
+	border-radius: 0;
+	border: none;
+	background-color: #222222;
+	overflow-y: auto;
+  }
+
+  /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
+
+  .side-nav>li.dropdown>ul.dropdown-menu {
+	position: relative;
+	min-width: 225px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	background-color: transparent;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+  }
+
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a {
+	color: #3585cc;
+	padding: 15px 15px 15px 25px;
+  }
+
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
+	color: #fff;
+	background-color: #264d9b;
+  }
+
+  .side-nav>li>a {
+	width: 225px;
+  }
+
+  .navbar-default .navbar-nav>li>a:hover,
+  .navbar-default .navbar-nav>li>a:focus {
+	background-color: #264d9b;
+  }
+}

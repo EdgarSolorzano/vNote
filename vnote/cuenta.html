@@ -1,0 +1,217 @@
+<?php session_start();?> 
+<?php 
+if(isset($_SESSION['nombre']))                     // Si el usuario ha iniciado sesión
+{
+	include('php/usuario.class.php');	           // Se incluye el archivo para trabajar con la clase Usuario
+}else{  //Si no se ha iniciado sesión, se reenvía al usuario a la página de Login
+	header("Location: ../login/login.html");
+}
+
+$Usuario_actual = new Usuario();                         // Instancia de la clase Usuario
+$DatosUsuario = $Usuario_actual->CargarDatosCuenta();    // Se obtienen los datos del usuario actual
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="vNote, Su Agenda Virtual">
+    <meta name="author" content="Edgar Solorzano, John Largaespada, Frank Brenes">
+
+    <title>vNote - Mi Cuenta</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS  -->
+    <link href="css/cuenta.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="img/logo1.ico">
+    
+    <!-- Especifico CSS -->
+       
+    <style type="text/css">
+		
+      /* Estilos personalizados extra
+      -------------------------------------------------- */
+      
+	  html,
+	  body{
+		  
+	  }
+	  	  	  	  
+     </style>
+    
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <!-- Agrupar para una mejor visualizacion móbil -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Menu</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="inicio.html" style="font-size:32px;color:#222222">vNote</a>
+        </div>
+
+        <!-- Navbar parte lateral -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li><a href="inicio.html" style="font-size:20px;"><i class="fa fa-home"></i>&nbsp;&nbsp; Inicio</a></li>
+            <li><a href="apuntes.html" style="font-size:20px;"><i class="fa fa-edit"></i>&nbsp;&nbsp; <style="text-align:center;">Apuntes</style></a></li>
+            <li><a href="eventos.html" style="font-size:20px;"><i class="fa fa-calendar"></i>  &nbsp;&nbsp;<style="text-align:center;">Eventos</style></a></li>
+            <li><a href="contactos.html" style="font-size:20px;"><i class="fa fa-users"></i> &nbsp;<style="text-align:center;">Contactos</style></a></li>
+            <li><a href="archivos.html" style="font-size:20px;"><i class="fa fa-file"></i> &nbsp;&nbsp;<style="text-align:center;">Archivos</style></a></li>
+            <li><a href="actividad.html" style="font-size:20px;"><i class="fa fa-bar-chart-o"></i> &nbsp;<style="text-align:center;">Actividad</style></a></li>
+            <li class="navbar-header"></li>
+            <li><a href="ayuda.html" style="font-size:20px;"><i class="fa fa-info-circle"></i> &nbsp;&nbsp;<style="text-align:center;">Ayuda</style></a></li>
+            <li class="active"><a href="cuenta.html" style="font-size:20px;"><i class="fa fa-gear"></i> &nbsp;&nbsp;<style="text-align:center;">Cuenta</style></a></li>
+          </ul>
+          
+          <!-- Navbar parte superior -->
+          <ul class="nav navbar-nav navbar-right navbar-user">
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin-right:8px;font-size:20px;color:#222222;</a></a>"><i class="fa fa-user"></i> &nbsp;<?php echo $_SESSION["nombre"]; ?><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="cuenta.html"><i class="fa fa-gear"></i> &nbsp;Mi Cuenta</a></li>
+                <li class="divider"></li>
+                <li><a href="<?php Cerrar_sesion();?>"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div id="page-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Mi Cuenta <small>"Modifique aquí las propiedades de su cuenta"</small></h1>
+            <ol class="breadcrumb">
+              <li class="active">vNote / <i class="fa fa-edit"></i>&nbsp;Configuración de Cuenta</li>
+            </ol>
+            <div class="alert alert-warning alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Modifique solo los campos que desea que sean modificados. No deje campos vacíos. <strong>No se permite cambiar el usuario.</strong> Para más información puede visitar la <a class="alert-link" href="ayuda.html">sección de Ayuda</a>.</div>
+          </div>
+        </div><!-- /.row -->
+
+        <!-- Funcionalidad de la página -->
+        <div class="row">
+			
+			<div class="col-lg-5">
+               <div class="panel panel-primary">
+                   <div class="panel-heading">
+                   <h3 class="panel-title"><i class="fa fa-gear"></i> Datos actuales de su cuenta</h3>
+                   </div>
+                      <div class="panel-body">
+						 
+						 <form class="horizontal"  method="post">
+<fieldset>
+
+<!-- Form para modificar las propiedades de la cuenta -->
+<p></p>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputUsuario">Usuario</label>  
+  <div class="col-md-5">            <!-- Se define readonly ya que no se le permite al usuario cambiar esta propiedad -->
+  <input id="inputUsuario" name="inputUsuario" type="text" readonly value="<?php echo $DatosUsuario[1];?>" class="form-control input-md">
+  <span class="help-block">Usuario. <strong>No se permite modificar!</strong></span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputNombre">Nombre</label>  
+  <div class="col-md-5">
+  <input id="inputNombre" name="inputNombre" type="text" onClick="this.select()" value="<?php echo $DatosUsuario[2];?>" class="form-control input-md" required="">
+  <span class="help-block">Nombre para mostrar</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputCorreo">Correo</label>  
+  <div class="col-md-5">
+  <input id="inputCorreo" name="inputCorreo" type="text" onClick="this.select()" value="<?php echo $DatosUsuario[3];?>" class="form-control input-md" required="">
+  <span class="help-block">Correo registrado</span>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="inputPassword">Contraseña</label>  
+  <div class="col-md-5">
+  <input id="inputPassword"  name="inputPassword" type="password" onClick="this.select()"  value="<?php echo $DatosUsuario[4];?>" class="form-control input-md" required="">
+  <span class="help-block">Contraseña utilizada</span>  
+  </div>
+</div>
+
+<!-- Text input escondido con la accion a realizar por el form -->
+<div class="form-group">
+  <input id="accion" name="accion" type="hidden" value="modificar" class="form-control input-md" required="">
+   </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="buttonGuardar"></label>
+  <div class="col-md-4">
+    <button id="buttonGuardar" name="buttonGuardar" class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Guardar Cambios</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+						 
+                      </div>
+                   </div>
+               </div>          
+            </div>   <!-- /.col-lg-5 -->
+          
+        </div><!-- /.row -->
+
+        <div class="row">
+		        
+          
+        </div><!-- /.row -->
+
+      </div><!-- /#page-wrapper -->
+
+    </div><!-- /#wrapper -->
+
+
+    <!-- JavaScript basicos -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <!-- Javascript extras -->
+    
+    <script src="js/morris/chart-data-morris.js"></script>
+    <script src="js/tablesorter/jquery.tablesorter.js"></script>
+    <script src="js/tablesorter/tables.js"></script>
+    <script src="js/jquery.showPassword.js"></script>
+
+<!-- Link para Mostrar la contraseña -->
+<script>
+$(document).ready(function() {
+  $(':password').showPassword({
+    linkRightOffset: -65,
+    linkTopOffset: 4,
+    linkText: 'Mostrar',
+    showPasswordLinkText: 'Esconder',
+});
+});
+</script>
+
+  </body>
+</html>
