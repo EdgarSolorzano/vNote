@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+    <head>
+        <!-- Datos -->
+        <meta charset="utf-8">
+        <title>vNote - Registro</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Vnote Application">
+        <meta name="author" content="Edgar Solorzano, Frank Brenes, John Largaespada">
+
+        <!-- CSS -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/supersized.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="img/logo1.ico">
+    </head>
+       		
+		<!-- Formulario para registrar un nuevo usuario -->	
+        <div class="page-container">
+            <h1 style="font-size:36px">vNote</h1>
+            &nbsp;
+            <h2 style="font-style:italic; font-size:20px">Nuevo usuario</h2>
+            <form action="../db/usuario.class.php" method="post">
+                <input type="text" name="inputUsuario" class="username" placeholder="Usuario" style="font-size:18px; font-weight:bold" >
+                <input type="text" name="inputNombre" class="username" placeholder="Nombre" style="font-size:18px; font-weight:bold" >
+                <input type="text" name="inputCorreo" class="username" placeholder="Correo" style="font-size:18px; font-weight:bold" >
+                <input type="password" name="inputPassword" class="password" placeholder="Contraseña" style="font-size:18px; font-weight:bold">
+	
+	            <input type="hidden" name="accion" value="registrarse">
+                <button class="buttonregistro" type="submit">Registrarse</button>
+                <a href="login.html" target="_parent"><button class="buttonlogin" type="button">Iniciar sesión</button></a>
+                
+                <p class="p1"  id="mensaje"></p>
+                                
+                <div class="error"><span>+</span></div>
+            </form>
+         
+        <!-- Javascript -->
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/supersized.3.2.7.min.js"></script>
+        <script src="js/supersized-init.js"></script>
+        <script src="js/scripts.js"></script>
+		
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+debug: true,
+errorElement: "label",
+errorContainer: $("#errores"),
+submitHandler: function(form){
+
+$.ajax({
+type: "POST",
+url:'../db/usuario.class.php',
+contentType: "application/x-www-form-urlencoded",
+processData: false,
+data: "&inputUsuario="+$('#inputUsuario').val()+"&inputNombre="+$('#inputNombre').val()+"&inputCorreo="+$('#inputCorreo').val()+"&inputPassword="+$('#inputPassword').val(),
+success: function(msg){
+
+if(msg.trim()=="1"){
+$("#mensaje").html("<strong>El usuario solicitado ya existe! Intentelo nuevamente.</strong>");
+alert("Ese nombre de usuario ya existe");
+
+}else{
+	if(msg.tri()=="3"){
+		$("#mensaje").html("<strong>Error de conexion con el servidor. Intentelo nuevamente.</strong>");
+		alert("Error con el servidor!");
+	}
+	else{  // Msg igual a 0.
+		$("#mensaje").html("<strong>Registro exitoso! Ahora puede ingresar en el sistema.</strong>");
+		location="login.html";		
+	}
+}
+
+}
+});
+}
+});
+});
+//--></script>    
+
+</html>

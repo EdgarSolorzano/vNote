@@ -1,0 +1,185 @@
+<?php 
+session_id('vNoteSession');
+session_start(); ?>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+    <head>
+        <!-- Datos -->
+        <meta charset="utf-8">
+        <title>vNote</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Vnote Application">
+        <meta name="author" content="Edgar Solorzano, Frank Brenes, John Largaespada">
+
+        <!-- CSS -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/supersized.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="img/logo1.ico">
+
+        <div class="page-container">
+            <h1 style="font-size:36px">vNote</h1>
+            &nbsp;
+            <h2 style="font-style:italic; font-size:20px">"Su agenda virtual"</h2>
+            <form action="../db/login.php" method="post">
+                <input type="text" name="inputUsername" class="username" placeholder="Usuario" style="font-size:18px; font-weight:bold" >
+                <input type="password" name="inputPassword" class="password" placeholder="Contraseña" style="font-size:18px; font-weight:bold">
+	
+                <button class="buttonlogin" type="submit">Iniciar sesión</button>
+                <p></p>
+                <a href="registro.html" target="_parent"><button class="buttonregister" type="button" href="registro.html" >Registrarme</button></a>
+                                
+                <div class="error"><span>+</span></div>
+            </form>
+            
+        <!-- Javascript -->
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/supersized.3.2.7.min.js"></script>
+        <script src="js/supersized-init.js"></script>
+        <script src="js/scripts.js"></script>
+		
+    </head>
+
+    <body>
+				
+	
+	<!-- Código para cargar el SDK de Facebook-->
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') { 
+      // Logged into your app and Facebook.
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = ' ' +
+        ' ';
+		
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = ' ' +
+        ' ';
+    }
+  }
+  
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			console.log('Logged in.');
+		}
+		else{
+			FB.login({scope: 'public_profile,email'});
+		}
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '385280381604146',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.0' // use version 2.0
+  });
+  
+  //FB.getLoginStatus(function(response) {
+  //if (response.status === 'connected') {
+  //  console.log('Logged in.');
+  //}
+  //else {
+  //  FB.login();
+  //}
+//});
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  };
+
+  // Load the SDK asynchronously
+    (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        ' ' + response.name + ' ';
+	  redireccionar();
+	  //Se crean variables para poder insertar la informacion del usuario de facebook en la base de datos llamando a Insert_Facebook.php
+	var nombre = response.first_name;
+	var apellido = response.last_name;
+	var correo = response.email;
+	var direccion = 'http://vnote.comoj.com/vnote/php/Insert_Facebook.php?nombre_facebook=' + nombre + '&apellido=' + apellido + '&email=' + correo;
+	//alert(direccion);
+	window.location.href = direccion;
+    });
+  }
+    
+  function redireccionar()   //¨Ésta funcion va a redireccionar a la pagina principal de vnote
+	{
+	var pagina="http://vnote.comoj.com/vnote/inicio.html";
+	//window.locationf=pagina;
+	location.href=pagina;
+	} 
+		
+</script>
+
+<!--
+	Crea el botón para entrar a facebook
+  -->
+ <p>&nbsp;</p>
+
+<fb:login-button scope="public_profile,email" data-size="xlarge" onlogin="checkLoginState();"></fb:login-button>
+
+
+<div id="status" ></div>
+<div id="status" ></div>
+<div id="status" ></div>
+<div id="status" ></div>
+
+
+<!-- Código para poner el boton de like en la pagina -->
+<div
+  class="fb-like"
+  data-show-faces="true"
+  data-send="true"
+  data-width="450">
+</div>
+
+</body>
+</html>
